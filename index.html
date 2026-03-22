@@ -1450,6 +1450,29 @@ document.getElementById('orientirsList').addEventListener('blur', function(e) {
         e.target.value = e.target.value.replace(/(\d),(\d)/g, '$1.$2');
     }
 }, true);
+document.getElementById('orientirsList').addEventListener('input', function(e) {
+    if (e.target.classList.contains('or-input')) {
+        const pos = e.target.selectionStart;
+        const fixed = e.target.value.replace(/(\d),(\d)/g, '$1.$2');
+        if (fixed !== e.target.value) {
+            e.target.value = fixed;
+            e.target.setSelectionRange(pos, pos);
+        }
+    }
+}, true);
+
+// Автовиправлення коми в полі координат центру
+document.getElementById('coordInput').addEventListener('blur', function() {
+    this.value = this.value.replace(/(\d),(\d)/g, '$1.$2');
+});
+document.getElementById('coordInput').addEventListener('input', function() {
+    const pos = this.selectionStart;
+    const fixed = this.value.replace(/(\d),(\d)/g, '$1.$2');
+    if (fixed !== this.value) {
+        this.value = fixed;
+        this.setSelectionRange(pos, pos);
+    }
+});
 document.getElementById('applyBtn').addEventListener('click', updateGrid);
 document.getElementById('pdfBtn').addEventListener('click', exportPDF);
 // initMap() викликається через _onLibsReady після завантаження бібліотек
